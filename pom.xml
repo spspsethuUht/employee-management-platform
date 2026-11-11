@@ -68,7 +68,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.sethu.todo.Primary</mainClass>
+					<mainClass>com.company.employee.EmployeeApplication</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
