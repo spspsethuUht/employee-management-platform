@@ -1,0 +1,11 @@
+apiVersion: v1
+
+kind: ConfigMap
+
+metadata:
+  name: employee-config
+  namespace: employee
+
+data:
+  APP_NAME: employee-management-platform
+  APP_ENV: dev
