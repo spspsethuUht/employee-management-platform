@@ -20,8 +20,8 @@ spec:
     spec:
       containers:
         - name: employee
-          image: employee-service:v2
-          imagePullPolicy: Never
+          image: spsethu/employee-service:v3
+          imagePullPolicy: Always 
 
           ports:
             - containerPort: 8080
