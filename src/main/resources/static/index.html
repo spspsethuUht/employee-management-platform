@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Employee Management Platform</title>
+
+    <style>
+
+        *{
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family:Arial,sans-serif;
+            background:#f5f6fa;
+            margin:0;
+            padding:30px;
+        }
+
+        .container{
+            max-width:1200px;
+            margin:auto;
+        }
+
+        .header{
+            background:#1f2937;
+            color:white;
+            padding:20px;
+            border-radius:8px;
+            margin-bottom:20px;
+        }
+
+        .card{
+            background:white;
+            padding:20px;
+            border-radius:8px;
+            margin-bottom:20px;
+            box-shadow:0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .row{
+            display:flex;
+            gap:15px;
+            flex-wrap:wrap;
+        }
+
+        .field{
+            flex:1;
+            min-width:250px;
+        }
+
+        label{
+            display:block;
+            margin-bottom:5px;
+            font-weight:bold;
+        }
+
+        input{
+            width:100%;
+            padding:10px;
+        }
+
+        button{
+            padding:10px 15px;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+            color:white;
+        }
+
+        .btn-add{
+            background:#1976d2;
+        }
+
+        .btn-update{
+            background:#f57c00;
+        }
+
+        .btn-search{
+            background:#7b1fa2;
+        }
+
+        .btn-reset{
+            background:#607d8b;
+        }
+
+        .btn-edit{
+            background:#388e3c;
+        }
+
+        .btn-delete{
+            background:#d32f2f;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:20px;
+        }
+
+        th{
+            background:#1976d2;
+            color:white;
+        }
+
+        th,td{
+            padding:10px;
+            border:1px solid #ddd;
+            text-align:left;
+        }
+
+        .message{
+            margin-top:15px;
+            font-weight:bold;
+        }
+
+        .success{
+            color:green;
+        }
+
+        .error{
+            color:red;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>Employee Management Platform</h1>
+
+        <p>Spring Boot + AWS RDS MySQL + Docker + EC2</p>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Add / Update Employee</h2>
+
+        <div class="row">
+
+            <div class="field">
+                <label>ID</label>
+                <input type="number" id="empId">
+            </div>
+
+            <div class="field">
+                <label>Name</label>
+                <input type="text" id="name">
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="field">
+                <label>Email</label>
+                <input type="email" id="email">
+            </div>
+
+            <div class="field">
+                <label>Department</label>
+                <input type="text" id="department">
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="field">
+                <label>Salary</label>
+                <input type="number" id="salary">
+            </div>
+
+        </div>
+
+        <br>
+
+        <button class="btn-search"
+                onclick="searchEmployee()">
+            Search Employee
+        </button>
+
+        <button class="btn-add"
+                onclick="addEmployee()">
+            Add Employee
+        </button>
+
+        <button class="btn-update"
+                onclick="updateEmployee()">
+            Update Employee
+        </button>
+
+        <button class="btn-reset"
+                onclick="resetForm()">
+            Reset
+        </button>
+
+        <div id="message" class="message"></div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Employee List</h2>
+
+        <table>
+
+            <thead>
+
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Department</th>
+                <th>Salary</th>
+                <th>Actions</th>
+            </tr>
+
+            </thead>
+
+            <tbody id="employeeTable"></tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script>
+
+    function showMessage(msg,type){
+
+        const div=document.getElementById("message");
+
+        div.innerText=msg;
+
+        if(type==="success"){
+            div.className="message success";
+        }else{
+            div.className="message error";
+        }
+    }
+
+    function validateEmployee(){
+
+        const name=document.getElementById("name").value.trim();
+        const email=document.getElementById("email").value.trim();
+        const department=document.getElementById("department").value.trim();
+        const salary=document.getElementById("salary").value.trim();
+
+        if(name.length<2){
+            showMessage("Name must contain at least 2 characters","error");
+            return false;
+        }
+
+        const emailPattern=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if(!emailPattern.test(email)){
+            showMessage("Invalid email address","error");
+            return false;
+        }
+
+        if(department.length<2){
+            showMessage("Department is required","error");
+            return false;
+        }
+
+        if(salary==="" || salary<=0){
+            showMessage("Salary must be greater than zero","error");
+            return false;
+        }
+
+        return true;
+    }
+
+    function getEmployeeObject(){
+
+        return{
+
+            name:document.getElementById("name").value.trim(),
+
+            email:document.getElementById("email").value.trim(),
+
+            department:document.getElementById("department").value.trim(),
+
+            salary:document.getElementById("salary").value
+
+        };
+    }
+
+    async function loadEmployees(){
+
+        const response=await fetch('/employees');
+
+        const employees=await response.json();
+
+        const tbody=document.getElementById("employeeTable");
+
+        tbody.innerHTML="";
+
+        employees.forEach(emp=>{
+
+            tbody.innerHTML+=`
+        <tr>
+
+        <td>${emp.id}</td>
+        <td>${emp.name}</td>
+        <td>${emp.email}</td>
+        <td>${emp.department}</td>
+        <td>${emp.salary ?? ''}</td>
+
+        <td>
+
+        <button class="btn-edit"
+        onclick="loadEmployeeForEdit(${emp.id})">
+        Edit
+        </button>
+
+        <button class="btn-delete"
+        onclick="deleteEmployee(${emp.id})">
+        Delete
+        </button>
+
+        </td>
+
+        </tr>
+        `;
+        });
+    }
+
+    async function addEmployee(){
+
+        if(!validateEmployee()){
+            return;
+        }
+
+        const response=await fetch('/employees',{
+
+            method:'POST',
+
+            headers:{
+                'Content-Type':'application/json'
+            },
+
+            body:JSON.stringify(
+                getEmployeeObject()
+            )
+        });
+
+        if(response.ok){
+
+            showMessage(
+                "Employee added successfully",
+                "success");
+
+            resetForm();
+
+            loadEmployees();
+
+        }else{
+
+            showMessage(
+                "Failed to add employee",
+                "error");
+        }
+    }
+
+    async function searchEmployee(){
+
+        const id=document.getElementById("empId").value;
+
+        if(id===""){
+            showMessage(
+                "Enter Employee ID",
+                "error");
+            return;
+        }
+
+        const response=
+            await fetch('/employees/'+id);
+
+        if(response.ok){
+
+            const emp=
+                await response.json();
+
+            document.getElementById("name").value=
+                emp.name;
+
+            document.getElementById("email").value=
+                emp.email;
+
+            document.getElementById("department").value=
+                emp.department;
+
+            document.getElementById("salary").value=
+                emp.salary;
+
+            showMessage(
+                "Employee found",
+                "success");
+
+        }else{
+
+            showMessage(
+                "Employee not found",
+                "error");
+        }
+    }
+
+    async function updateEmployee(){
+
+        const id=document.getElementById("empId").value;
+
+        if(id===""){
+
+            showMessage(
+                "Employee ID required",
+                "error");
+
+            return;
+        }
+
+        if(!validateEmployee()){
+            return;
+        }
+
+        const response=
+            await fetch('/employees/'+id,{
+
+                method:'PUT',
+
+                headers:{
+                    'Content-Type':'application/json'
+                },
+
+                body:JSON.stringify(
+                    getEmployeeObject()
+                )
+            });
+
+        if(response.ok){
+
+            showMessage(
+                "Employee updated successfully",
+                "success");
+
+            loadEmployees();
+
+        }else{
+
+            showMessage(
+                "Update failed",
+                "error");
+        }
+    }
+
+    async function deleteEmployee(id){
+
+        if(!confirm(
+            "Delete employee id "+id+" ?"
+        )){
+            return;
+        }
+
+        const response=
+            await fetch('/employees/'+id,{
+
+                method:'DELETE'
+            });
+
+        if(response.ok){
+
+            showMessage(
+                "Employee deleted successfully",
+                "success");
+
+            loadEmployees();
+
+        }else{
+
+            showMessage(
+                "Delete failed",
+                "error");
+        }
+    }
+
+    async function loadEmployeeForEdit(id){
+
+        document.getElementById("empId").value=id;
+
+        await searchEmployee();
+    }
+
+    function resetForm(){
+
+        document.getElementById("empId").value="";
+        document.getElementById("name").value="";
+        document.getElementById("email").value="";
+        document.getElementById("department").value="";
+        document.getElementById("salary").value="";
+    }
+
+    loadEmployees();
+
+</script>
+
+</body>
+</html>
