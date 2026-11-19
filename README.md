@@ -197,15 +197,15 @@ GET /actuator/prometheus
 
 ### Employee Management Dashboard
 
-screenshots/employee-dashboard.png
-
-### Employee Search
-
-![Employee Search](screenshots/employee-search.png)
+![Employee Dashboard](screenshots/16-Adding-Employee-Record.png)
 
 ### Employee Update
 
-![Employee Update](screenshots/employee-update.png)
+![Employee Update](screenshots/17-Updating-Employee-Record.png)
+
+### Employee Search
+
+![Employee Search](screenshots/18-Searching-Employee-Record.png)
 
 ---
 
