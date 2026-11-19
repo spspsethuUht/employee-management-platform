@@ -197,7 +197,7 @@ GET /actuator/prometheus
 
 ### Employee Management Dashboard
 
-![Employee Dashboard](screenshots/employee-dashboard.png)
+screenshots/employee-dashboard.png
 
 ### Employee Search
 
