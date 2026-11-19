@@ -195,7 +195,7 @@ GET /actuator/prometheus
 
 ## Application Screenshots
 
-### Employee Management Dashboard
+### Employee Dashboard
 
 ![Employee Dashboard](screenshots/16-Adding-Employee-Record.png)
 
