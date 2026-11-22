@@ -320,13 +320,21 @@ https://hub.docker.com/r/spsethu/employee-service
 - Cloud-Based Persistence
 - Observability Engineering
 
+
+---
+## Automated CI/CD Pipeline
+
+Git Push
+→ GitHub Actions
+→ Docker Build
+→ Docker Hub
+→ AWS EC2 Automatic Deployment
+---
+
 ---
 
 ## Future Enhancements
 
-
-- Automated EC2 Deployment
-- Prometheus Alerting
 - Grafana Alert Rules
 - Spring Security Integration
 - Role-Based Access Control
