@@ -38,4 +38,24 @@ jobs:
       - name: Push Docker Image
         run: |
           docker push spsethu/employee-service:latest
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+
+            sudo docker pull spsethu/employee-service:latest
+
+            sudo docker stop employee-app || true
+
+            sudo docker rm employee-app || true
+
+            sudo docker run -d \
+              --name employee-app \
+              -p 8080:8080 \
+              spsethu/employee-service:latest
+    
           
