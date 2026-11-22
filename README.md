@@ -288,6 +288,24 @@ This confirms successful integration with AWS RDS MySQL.
 
 ---
 
+## CI/CD Pipeline
+
+GitHub Actions automatically:
+
+- Builds the Spring Boot application
+- Creates a Docker image
+- Pushes the image to Docker Hub
+
+Docker Hub Repository:
+
+https://hub.docker.com/r/spsethu/employee-service
+---
+
+
+
+
+
+
 ## Project Learnings
 
 - Full-Stack Web Development
@@ -306,7 +324,7 @@ This confirms successful integration with AWS RDS MySQL.
 
 ## Future Enhancements
 
-- GitHub Actions Docker Image Build
+
 - Automated EC2 Deployment
 - Prometheus Alerting
 - Grafana Alert Rules
