@@ -330,7 +330,22 @@ Git Push
 → Docker Hub
 → AWS EC2 Automatic Deployment
 ---
+## Terraform Infrastructure
 
+Implemented Terraform Infrastructure as Code (IaC) for AWS.
+
+Features:
+- AWS Provider Configuration
+- EC2 Infrastructure Definition
+- Terraform Init
+- Terraform Validate
+- Terraform Plan
+- AWS IAM User Integration
+
+Screenshots:
+- AWS Configure
+- Terraform Init & Validate
+- Terraform Plan
 ---
 
 ## Future Enhancements
