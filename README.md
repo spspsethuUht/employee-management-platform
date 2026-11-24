@@ -330,7 +330,22 @@ Git Push
 → Docker Hub
 → AWS EC2 Automatic Deployment
 ---
+## Terraform Infrastructure
 
+Implemented Terraform Infrastructure as Code (IaC) for AWS.
+
+Features:
+- AWS Provider Configuration
+- EC2 Infrastructure Definition
+- Terraform Init
+- Terraform Validate
+- Terraform Plan
+- AWS IAM User Integration
+
+Screenshots:
+- AWS Configure
+- Terraform Init & Validate
+- Terraform Plan
 ---
 
 ## Future Enhancements
@@ -341,6 +356,59 @@ Git Push
 - Kubernetes Monitoring
 
 ---
+
+---
+
+## Terraform Security Group Provisioning (v2.2)
+
+As part of Employee Management Platform v2.2, Infrastructure as Code (IaC) capabilities were extended using Terraform to provision AWS Security Groups. A dedicated Security Group named **employee-sg** was created and deployed to AWS using Terraform. The Security Group allows secure SSH access on port 22 and application access on port 8080. Terraform validation, planning, and apply workflows were successfully executed, and the resulting Security Group was verified directly in the AWS Console. This implementation demonstrates hands-on experience with AWS networking, Terraform state management, cloud security configuration, and automated infrastructure provisioning.
+
+### Security Group Configuration
+
+| Port | Protocol | Purpose |
+|--------|----------|----------|
+| 22 | TCP | SSH Administration |
+| 8080 | TCP | Employee Management Application |
+
+### Terraform Commands Executed
+
+```bash
+terraform init
+terraform validate
+terraform plan
+terraform apply
+```
+
+### Provisioning Result
+
+```text
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+
+security_group_id = sg-0e05e53cb57724bfe
+```
+
+### Terraform Security Group Screenshots
+
+#### Terraform Apply Successful
+
+![Terraform Security Group Apply](terraform-screenshots/05-terraform-apply-securitygroup.png)
+
+#### AWS Security Group Verification
+
+![AWS Security Group Created](terraform-screenshots/06-aws-security-group-created.png)
+
+---
+
+---
+### v2.2
+
+- AWS Security Group Definition using Terraform
+- Terraform Apply Execution
+- Security Group Provisioning
+- AWS Security Group Validation
+- Infrastructure as Code Enhancement
+---
+
 
 ## Author
 
