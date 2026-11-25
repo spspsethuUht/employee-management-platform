@@ -1,13 +1,13 @@
-/*
+
 resource "aws_instance" "employee_app" {
   ami           = "ami-04cc7e4039506421f"
-  instance_type = "t3.micro"
+  instance_type = var.instance_type
 
   tags = {
     Name = "employee-management-server"
   }
 }
-*/
+
 resource "aws_security_group" "employee_sg" {
   name        = "employee-sg"
   description = "Security group for Employee Management Platform"
