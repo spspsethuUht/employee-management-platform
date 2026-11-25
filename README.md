@@ -410,6 +410,24 @@ security_group_id = sg-0e05e53cb57724bfe
 ---
 
 
+---
+## Terraform Elastic IP & Infrastructure Variables (v2.3)
+
+As part of v2.3, Terraform configurations were enhanced by introducing reusable variables and Elastic IP infrastructure definitions. Variables were used to externalize AWS region and EC2 instance settings, improving maintainability and reusability. An AWS Elastic IP resource was defined using Terraform to support future static public IP assignment requirements and production-ready deployment architectures.
+
+### Terraform Variables
+
+- AWS Region
+- EC2 Instance Type
+
+### Elastic IP Benefits
+
+- Static Public IP Address
+- Consistent Access Endpoints
+- Supports CI/CD Deployments
+- Improves Production Readiness
+---
+
 ## Author
 
 **Sethu P**
