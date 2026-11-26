@@ -449,7 +449,37 @@ To improve scalability and service availability, an AWS Auto Scaling Group (ASG)
 - Self-healing infrastructure
 - Improved availability
 - Horizontal scaling capability
+---
+## Application Load Balancer (v2.5)
 
+As part of v2.5, an AWS Application Load Balancer (ALB) was implemented to provide scalable and highly available access to the Employee Management Platform. A target group was configured to route traffic to Auto Scaling Group instances running the Spring Boot application on port 8080.
+
+### Components Implemented
+
+- Application Load Balancer (ALB)
+- Target Group (employee-app-tg)
+- Auto Scaling Group Integration
+- Health Check Monitoring
+
+### Configuration
+
+- Listener: HTTP Port 80
+- Target Port: 8080
+- Health Check Path: /actuator/health
+- Load Balancer Type: Internet-facing
+
+### Benefits
+
+- Traffic Distribution
+- High Availability
+- Auto Scaling Integration
+- Automated Health Monitoring
+- Production-Ready Cloud Architecture
+
+### Validation
+
+The Application Load Balancer successfully routed traffic to healthy Auto Scaling Group instances. Application pages and Spring Boot Actuator health endpoints were accessible through the ALB DNS endpoint.
+---
 ---
 ## Author
 
