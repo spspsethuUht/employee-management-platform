@@ -427,7 +427,30 @@ As part of v2.3, Terraform configurations were enhanced by introducing reusable 
 - Supports CI/CD Deployments
 - Improves Production Readiness
 ---
+## AWS Auto Scaling Group (v2.4)
 
+To improve scalability and service availability, an AWS Auto Scaling Group (ASG) was implemented. A Launch Template was created to define EC2 instance configuration, including AMI, instance type, key pair, and security group settings.
+
+### Auto Scaling Configuration
+
+- Launch Template: employee-app-template
+- Minimum Capacity: 1
+- Desired Capacity: 1
+- Maximum Capacity: 2
+
+### Scaling Policy
+
+- Target Tracking Policy
+- Average CPU Utilization
+
+### Benefits
+
+- Automatic EC2 provisioning
+- Self-healing infrastructure
+- Improved availability
+- Horizontal scaling capability
+
+---
 ## Author
 
 **Sethu P**
