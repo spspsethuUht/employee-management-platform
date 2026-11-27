@@ -480,6 +480,32 @@ As part of v2.5, an AWS Application Load Balancer (ALB) was implemented to provi
 
 The Application Load Balancer successfully routed traffic to healthy Auto Scaling Group instances. Application pages and Spring Boot Actuator health endpoints were accessible through the ALB DNS endpoint.
 ---
+## Datadog Monitoring (v2.6)
+
+As part of v2.6, Datadog Agent was installed and configured on AWS EC2 instances hosting the Employee Management Platform. The agent was integrated with the Datadog cloud platform to provide infrastructure observability and real-time monitoring capabilities.
+
+### Features Implemented
+
+- Datadog Agent Installation
+- Host Discovery
+- CPU Monitoring
+- Memory Monitoring
+- Disk Monitoring
+- Host-Level Alerting
+- API Key Rotation
+- Agent Health Validation
+
+### Validation
+
+The Datadog Agent successfully connected to the Datadog platform and reported host health metrics. Infrastructure monitors displayed healthy operational status and provided visibility into system resource utilization.
+
+### Benefits
+
+- Enterprise-grade monitoring
+- Centralized infrastructure visibility
+- Real-time operational metrics
+- Proactive host monitoring
+- Enhanced observability
 ---
 ## Author
 
